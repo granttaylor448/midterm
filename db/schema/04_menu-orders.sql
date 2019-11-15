@@ -4,3 +4,4 @@ CREATE TABLE menu_orders (
   order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
   quantity INT
 );
+-- comment
