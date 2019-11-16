@@ -1,0 +1,28 @@
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark bg-info">
+    <a class="navbar-brand" href="/urls">Orderz</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/urls"></a>
+        <a class="nav-item nav-link" href="/urls/new"></a>
+      </div>
+    </div>
+
+
+    <main style="margin: 1em;">
+
+      <form class="form-inline" action="/login" method="POST">
+        <div class="form-group mb-2">
+          <button type="submit" class="btn btn-outline-dark" formaction="/login" formmethod="GET">Login</button>
+          <button type="submit" class="btn btn-outline-dark" formaction="/register" formmethod="GET"
+            style="margin-left: 10px;text-decoration: none;">Register</button>
+        </div>
+      </form>
+
+  </nav>
+</header>
