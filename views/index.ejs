@@ -3,36 +3,64 @@
 <body>
   <% include ../public/partials/_header %>
 
-  <div class="entire_body_container">
-    <div class="jumbotron jumbotron ">
-      <div class="container">
-        <h1 class="display-4">Thai Time</h1>
-        <p class="lead">Offering Calgary's best Thai food since 1957</p>
-      </div>
+
+  <div class="jumbotron jumbotron bg-image">
+    <div class="container">
+      <h1 class="display-1">Thai Time</h1>
+      <p class="lead">Offering Calgary's best Thai food since 1957</p>
     </div>
+  </div>
+
+  <div class="entire_body_container">
 
 
     <div id="menu-items">
 
+      <div class="card menu-items__card p-3 mb-3">
 
-      <div class="card menu-items__card">
+        <div class="card-header menu-title-price">
+          Fried rice Fried rice Fried rice
 
-        <div class="card-header menu-items__flex">
-          Fried rice
           <div class="menu-price">
-            <h3>25</h3>
+            <h5>25</h5>
           </div>
         </div>
 
         <div class="menu-items__flex">
           <img class="menu-image inline" src="../styles/fried_rice.png" alt="fried_rice">
           <div class="card-body inline">
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.With supporting
-              text
-              below as a natural lead-in to additional content.</p>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content. With supporting
+              text below as a natural lead-in to additional content.</p>
           </div>
-          <input class="menu-counter" type='number' min='0' max='10'>
+
+          <div class="qty mt-2 mr-1 ml-1">
+            <span class="minus bg-danger">-</span>
+            <input type="number" class="count" name="qty" value="0">
+            <span class="plus bg-danger">+</span>
+          </div>
         </div>
+      </div>
+
+      <div class="card menu-items__card p-3 mb-3">
+
+        <div class="card-header menu-title-price">
+          Fried rice Fried rice Fried rice
+
+          <div class="menu-price">
+            <h5>25</h5>
+          </div>
+        </div>
+
+        <div class="menu-items__flex">
+          <img class="menu-image inline" src="../styles/fried_rice.png" alt="fried_rice">
+          <div class="card-body inline">
+            <p class="card-text">With supporting text below as a natural lead-in to additional content. With supporting
+              text below as a natural lead-in to additional content.</p>
+          </div>
+
+        </div>
+
+
       </div>
 
     </div>
@@ -53,6 +81,33 @@
   </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <script>
+    $(document).ready(function () {
+      // $('.count').prop('disabled', true);
+      $(document).on('click', '.plus', function () {
+        if ($('.count').val() >= 10) {
+          $('.count').val('10');
+          $('.count').prop('disabled', true);
+        } else {
+          $('.count').val(parseInt($('.count').val()) + 1);
+        }
+      });
+      $(document).on('click', '.minus', function () {
+        // $('.count').val(parseInt($('.count').val()) - 1);
+        // if ($('.count').val() == 0) {
+        //   $('.count').val(1);
+        // }
+
+        if ($('.count').val() <= 0) {
+          $('.count').val('0');
+          $('.count').prop('disabled', true);
+        } else {
+          $('.count').val(parseInt($('.count').val()) - 1);
+        }
+      });
+    });
+
   </script>
 </body>
 
