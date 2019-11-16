@@ -29,11 +29,12 @@
         <div class="menu-items__flex">
           <img class="menu-image inline" src="../styles/fried_rice.png" alt="fried_rice">
           <div class="card-body inline">
-            <p class="card-text">With supporting text below as a natural lead-in to additional content. With supporting
+            <p class="card-text text-justify">With supporting text below as a natural lead-in to additional content.
+              With supporting
               text below as a natural lead-in to additional content.</p>
           </div>
 
-          <div class="qty mt-2 mr-1 ml-1">
+          <div class="qty">
             <span class="minus bg-danger">-</span>
             <input type="number" class="count" name="qty" value="0">
             <span class="plus bg-danger">+</span>
@@ -41,32 +42,11 @@
         </div>
       </div>
 
-      <div class="card menu-items__card p-3 mb-3">
-
-        <div class="card-header menu-title-price">
-          Fried rice Fried rice Fried rice
-
-          <div class="menu-price">
-            <h5>25</h5>
-          </div>
-        </div>
-
-        <div class="menu-items__flex">
-          <img class="menu-image inline" src="../styles/fried_rice.png" alt="fried_rice">
-          <div class="card-body inline">
-            <p class="card-text">With supporting text below as a natural lead-in to additional content. With supporting
-              text below as a natural lead-in to additional content.</p>
-          </div>
-
-        </div>
-
-
-      </div>
-
     </div>
 
-
   </div>
+
+  <% include ../public/partials/_footer %>
 
 
 
@@ -84,7 +64,6 @@
   </script>
   <script>
     $(document).ready(function () {
-      // $('.count').prop('disabled', true);
       $(document).on('click', '.plus', function () {
         if ($('.count').val() >= 10) {
           $('.count').val('10');
@@ -94,10 +73,6 @@
         }
       });
       $(document).on('click', '.minus', function () {
-        // $('.count').val(parseInt($('.count').val()) - 1);
-        // if ($('.count').val() == 0) {
-        //   $('.count').val(1);
-        // }
 
         if ($('.count').val() <= 0) {
           $('.count').val('0');

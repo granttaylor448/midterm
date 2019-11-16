@@ -108,8 +108,12 @@ body {
   border-radius: 50%;
   background-clip: padding-box;
 }
-div {
-  text-align: center;
+div.qty {
+  // display: flex; THIS IS FOR SMALL SCREENS
+  // flex-direction: column;
+  // text-align: center;
+  // align-items: center;
+  max-width: 150px;
 }
 .minus:hover{
   background-color: #717fe0 !important;
