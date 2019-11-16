@@ -18,7 +18,6 @@ module.exports = (db) => {
     db.query(query)
       .then(data => {
         const menu = data.rows;
-        console.log('menu IS ', menu);
         res.json({ menu });
       })
       .catch(err => {

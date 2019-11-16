@@ -53,3 +53,18 @@ $(() => {
   })
 
 });
+
+
+$(() => {
+  $.ajax({
+    method: "GET",
+    url: "/api/users"
+  }).done((response) => {
+    //console.log(response.menu);
+    console.log(response.rows);
+    response.rows;
+  })
+
+});
+
+
