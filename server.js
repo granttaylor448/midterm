@@ -2,19 +2,30 @@
 require('dotenv').config();
 
 // Web server config
-const PORT       = process.env.PORT || 8080;
-const ENV        = process.env.ENV || "development";
-const express    = require("express");
+const PORT = process.env.PORT || 8080;
+const ENV = process.env.ENV || "development";
+const express = require("express");
 const bodyParser = require("body-parser");
-const sass       = require("node-sass-middleware");
-const app        = express();
-const morgan     = require('morgan');
+const sass = require("node-sass-middleware");
+const app = express();
+const morgan = require('morgan');
+const {
+  getUserByEmail
+} = require('./db/database')
 
 // PG database client/connection setup
-const { Pool } = require('pg');
+const {
+  Pool
+} = require('pg');
 const dbParams = require('./lib/db.js');
 const db = new Pool(dbParams);
 db.connect();
+
+let cookieSession = require('cookie-session');
+app.use(cookieSession({
+  name: 'session',
+  keys: ['1']
+}));
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -22,7 +33,9 @@ db.connect();
 app.use(morgan('dev'));
 
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -51,8 +64,28 @@ app.use("/api/menu_orders", menu_ordersRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
-  res.render("index");
+  console.log('/', res.cookie)
+  res.render("index", {
+    userCookie: req.session.userCookie
+  });
+  console.log("COOKIE ", res.cookie)
 });
+app.get("/login/:user_email", (req, res) => {
+  let userEmail = req.params.user_email;
+
+  if (getUserByEmail(userEmail, db)) {
+    // res.cookie('userCookie', userEmail)
+    req.session.userCookie = userEmail;
+    // console.log(req.session.userCookie);
+    res.redirect("/");
+  }
+
+});
+
+app.post('/logout', (req, res) => {
+  req.session = null;
+  res.redirect('/');
+ });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
