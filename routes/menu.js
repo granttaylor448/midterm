@@ -7,6 +7,9 @@
 
 const express = require('express');
 const router  = express.Router();
+const getAllMenu = require('../db/database');
+
+
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -15,6 +18,7 @@ module.exports = (db) => {
     db.query(query)
       .then(data => {
         const menu = data.rows;
+        console.log('menu IS ', menu);
         res.json({ menu });
       })
       .catch(err => {
@@ -25,3 +29,25 @@ module.exports = (db) => {
   });
   return router;
 };
+
+
+
+
+
+// module.exports = (db) => {
+//   router.get("/", (req, res) => {
+//     let query = `SELECT * FROM menu`;
+//     console.log(query);
+//     db.query(query)
+//       .then(data => {
+//         const menu = data.rows;
+//         res.json({ menu });
+//       })
+//       .catch(err => {
+//         res
+//           .status(500)
+//           .json({ error: err.message });
+//       });
+//   });
+//   return router;
+// };
