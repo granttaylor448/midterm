@@ -11,7 +11,7 @@
 
 const createMenu = function (menu) {
   return (
-    ` <div class="card menu-items__card p-3 mb-3">
+    ` <article class="card menu-items__card p-3 mb-3">
 
         <div class="card-header menu-title-price">
           ${menu.name}
@@ -23,16 +23,18 @@ const createMenu = function (menu) {
         <div class="menu-items__flex">
           <img class="menu-image inline" src="${menu.photo}" alt="fried_rice">
           <div class="card-body inline">
-            <p class="card-text text-justify">${menu.description}</p>
+            <p class="card-text text-justify">
+            ${menu.description}
+            </p>
           </div>
 
-          <div class="qty">
+          <div id='qty' class="qty">
             <span class="minus bg-danger">-</span>
-            <input type="number" class="count" name="qty" value="0">
+            <input type="number" class="count" name="qty" value="0" min='0' max='10'>
             <span class="plus bg-danger">+</span>
           </div>
         </div>
-      </div>`
+      </article>`
   )
 }
 
@@ -52,7 +54,10 @@ $(() => {
     renderMenu(response.menu);
   })
 
+  
+
 });
+
 
 
 $(() => {
@@ -65,6 +70,5 @@ $(() => {
     response.rows;
   })
 
+
 });
-
-
