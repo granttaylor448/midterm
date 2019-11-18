@@ -1,5 +1,5 @@
 INSERT INTO menu (name, description, photo, price)
-VALUES('burger', 'classic burger', '../images/fried_rice.png', 500),
-('salmon', 'atlantic salmon', '../images/fried_rice.png', 500),
-('sandwich', 'may be from tim hortons', '../images/fried_rice.png', 500),
-('steak', 'alberta beef', '../images/fried_rice.png', 500);
+VALUES('burger', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus et, pariatur sequi velit, hic non illo excepturi tempore saepe dolorem aspernatur officiis sunt cupiditate dolores quos nisi, consequuntur ab sapiente.', '../images/fried_rice.png', 500),
+('salmon', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus et, pariatur sequi velit, hic non illo excepturi tempore saepe dolorem aspernatur officiis sunt cupiditate dolores quos nisi, consequuntur ab sapiente.', '../images/fried_rice.png', 500),
+('sandwich', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus et, pariatur sequi velit, hic non illo excepturi tempore saepe dolorem aspernatur officiis sunt cupiditate dolores quos nisi, consequuntur ab sapiente.', '../images/fried_rice.png', 500),
+('steak', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus et, pariatur sequi velit, hic non illo excepturi tempore saepe dolorem aspernatur officiis sunt cupiditate dolores quos nisi, consequuntur ab sapiente.', '../images/fried_rice.png', 500);

@@ -64,11 +64,9 @@ app.use("/api/menu_orders", menu_ordersRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
-  console.log('/', res.cookie)
   res.render("index", {
     userCookie: req.session.userCookie
   });
-  console.log("COOKIE ", res.cookie)
 });
 app.get("/login/:user_email", (req, res) => {
   let userEmail = req.params.user_email;

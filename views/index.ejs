@@ -14,7 +14,7 @@
   <div class="entire_body_container">
 
 
-    <div id="menu-items">
+    <section id="menu-items">
 
       <!-- <div class="card menu-items__card p-3 mb-3">
 
@@ -42,7 +42,7 @@
         </div>
       </div> -->
 
-    </div>
+    </section>
 
   </div>
 
@@ -64,24 +64,55 @@
   </script>
   <script>
     $(document).ready(function () {
-      $(document).on('click', '.plus', function () {
-        if ($('.count').val() >= 10) {
-          $('.count').val('10');
-          $('.count').prop('disabled', true);
-        } else {
-          $('.count').val(parseInt($('.count').val()) + 1);
-        }
-      });
-      $(document).on('click', '.minus', function () {
 
-        if ($('.count').val() <= 0) {
-          $('.count').val('0');
-          $('.count').prop('disabled', true);
-        } else {
-          $('.count').val(parseInt($('.count').val()) - 1);
-        }
-      });
+
+
+      // let menuCounter = $(".menu-counter").val();
+      // console.log('menuCounter ', menuCounter)
+
+      // function showDivValues() {
+      //   let elements = document.getElementsByClassName("menu-counter");
+      //   let val = elements[0];
+      //   console.log('val ', val);
+      //   console.log('elements ', elements);
+
+      //   // for (let i = 0; i < 5; i++) {
+      //   //   console.log('LOOPING', document.getElementsByClassName("menu-counter")[i]);
+      //   // }
+      // }
+
+      // showDivValues();
+
+
+
+
+      // $(document).on('click', '.plus', function () {
+      //   if ($('.count').val() >= 10) {
+      //     $('.count').val('10');
+      //     $('.count').prop('disabled', true);
+      //   } else {
+      //     $('.count').val(parseInt($('.count').val()) + 1);
+      //   }
+      // });
+      // $(document).on('click', '.minus', function () {
+
+      //   if ($('.count').val() <= 0) {
+      //     $('.count').val('0');
+      //     $('.count').prop('disabled', true);
+      //   } else {
+      //     $('.count').val(parseInt($('.count').val()) - 1);
+      //   }
+      // });
     });
+
+  </script>
+  <script>
+    window.addEventListener('load', function () {
+      let elements = document.getElementsByClassName("count");
+      console.log('elements ', elements);
+      console.log('elements[0] ', elements[0]);
+      return elements[0]
+    })
 
   </script>
 </body>
