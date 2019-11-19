@@ -107,6 +107,10 @@ nav.navbar {
   border: 2px solid red;
 }
 
+// ---------------------------
+//Menu card end
+// ---------------------------
+
 .page-footer {
   color: #343a40;
   a {
@@ -114,9 +118,24 @@ nav.navbar {
   }
 }
 
-// ---------------------------
-//Menu card end
-// ---------------------------
+.order-button {
+  position: fixed;
+  bottom: 30px;
+  right: 15px;
+  opacity: 0.9;
+  background-color: red;
+  color: white;
+  width: 80px;
+  height: 40px;
+  border-radius: 15%;
+  border: none;
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+}
 
 // ---------------------------
 //Media querires
@@ -151,6 +170,11 @@ nav.navbar {
 
   .lead {
     font-size: 2rem;
+  }
+
+  .order-button {
+    bottom: 80px;
+    right: 15px;
   }
 }
 

@@ -12,11 +12,11 @@
   </div>
 
   <div class="entire_body_container">
+    <form action="#" method="#">
 
+      <section id="menu-items">
 
-    <section id="menu-items">
-
-      <!-- <div class="card menu-items__card p-3 mb-3">
+        <!-- <div class="card menu-items__card p-3 mb-3">
 
         <div class="card-header menu-title-price">
           Fried rice Fried rice Fried rice
@@ -42,9 +42,12 @@
         </div>
       </div> -->
 
-    </section>
+      </section>
 
   </div>
+
+  <input id='order-button' type='submit' class="order-button" name='order' value="Order" />
+  </form>
 
   <% include ../public/partials/_footer %>
 
@@ -107,12 +110,16 @@
 
   </script>
   <script>
-    window.addEventListener('load', function () {
-      let elements = document.getElementsByClassName("count");
-      console.log('elements ', elements);
-      console.log('elements[0] ', elements[0]);
-      return elements[0]
-    })
+    // window.addEventListener('load', function () {
+
+    //   let menuName = document.getElementsByClassName('menu-title');
+    //   let elements = document.getElementsByClassName("count");
+
+    //   for (var i = 0; i < elements.length; i++) {
+    //     console.log('ELEMENTS ', elements[i].value);
+    //     console.log('MENUNAME ', menuName[i].textContent);
+    //   }
+    // })
 
   </script>
 </body>

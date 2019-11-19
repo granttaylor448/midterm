@@ -10,7 +10,8 @@ const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require('morgan');
 const {
-  getUserByEmail
+  getUserByEmail,
+  newOrder
 } = require('./db/database')
 
 // PG database client/connection setup
@@ -84,6 +85,10 @@ app.post('/logout', (req, res) => {
   req.session = null;
   res.redirect('/');
  });
+
+//  app.post('/api/orders', (req,res) =>{
+//    newOrder(1, db);
+//  })
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
