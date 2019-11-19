@@ -75,30 +75,74 @@ $(() => {
 
 const createOrder = function (order) {
   return (`
-      <div class="card-body order-summary">
-        <h4 class="card-title">${order.menu_id}</h4>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
+    <tr>
+      <td></td>
+      <td>${order.name}</td>
+      <td>${order.quantity}</td>
+      <td>${order.price}</td>
+    </tr>
   `)
 }
 
+const getLastOrder = function (menu_orders) {
+  let max = 0;
+  for (let item in menu_orders) {
+    if (menu_orders[item]['order_id'] > max) {
+      max = menu_orders[item]['order_id'];
+    }
+  }
+  return max
+}
+
+// const renderOrder = function (orders) {
+//   $("#order-summary-container").append(`
+//     <div class="card">
+//       <div class="card-header">
+//         Your order
+//       </div>
+//     <div class="order-summary">
+//        <div>Dish name</div>
+//        <div>Quantity</div>
+//        <div>Price</div>
+//     </div>
+//     `);
+//   const menuContainer = $('.order-summary');
+//   orders.forEach((order) => {
+//     if (order.order_id == getLastOrder(orders)) {
+//       menuContainer.append(createOrder(order))
+//     }
+//   })
+// }
+
 const renderOrder = function (orders) {
   $("#order-summary-container").append(`
-    <div class="card">
-      <div class="card-header">
-        Your order
-      </div>
-    <div class="card-body order-summary">
+    <table style="width:100%">
+    <thead>
+    <tr>
+      <th>Your order</th>
+      <th>Dish name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody class='order-table-body'>
+    </tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Tax:2</td>
+        <td>23</td>
+      </tr>
+    </table>
     `);
-  const menuContainer = $('.order-summary');
+  const menuContainer = $('.order-table-body');
   orders.forEach((order) => {
-    if (order.order_id == 1) {
+    if (order.order_id == getLastOrder(orders)) {
       menuContainer.append(createOrder(order))
     }
   })
 }
-//console.log('COOKIE ', req.session.cookie)
+
 $(() => {
   function usersInput() {
     let usersOrder = [];
@@ -138,7 +182,7 @@ $(() => {
       method: "GET",
       url: "/api/menu_orders"
     }).done((response) => {
-      //console.log(response.menu);
+      console.log(response.menu_orders);
       $("#menu-items").slideUp('slow')
       renderOrder(response.menu_orders);
     })

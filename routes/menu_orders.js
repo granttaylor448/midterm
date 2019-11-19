@@ -4,7 +4,7 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM menu_orders
+    let query = `SELECT *, menu.name FROM menu_orders
     JOIN orders ON orders.id = order_id
     JOIN menu ON menu.id=menu_id
     JOIN users ON users.id = user_id

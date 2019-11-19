@@ -68,7 +68,7 @@ app.get("/", (req, res) => {
   res.render("index", {
     userCookie: req.session.userCookie
   });
-  console.log(userCookie)
+  // console.log(userCookie)
 });
 app.get("/login/:user_email", (req, res) => {
   let userEmail = req.params.user_email;
