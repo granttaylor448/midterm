@@ -6,9 +6,13 @@ module.exports = (db) => {
   router.get("/", (req, res) => {
     let query = `SELECT * FROM menu_orders
     JOIN orders ON orders.id = order_id
-    JOIN menu ON menu.id=menu_id`;
-    console.log(query);
-    db.query(query)
+    JOIN menu ON menu.id=menu_id
+    JOIN users ON users.id = user_id
+    WHERE users.email = $1
+    ;`;
+    let param = [req.session.userCookie]
+    console.log(query, param);
+    db.query(query, param)
       .then(data => {
         const menu_orders = data.rows;
         res.json({ menu_orders });

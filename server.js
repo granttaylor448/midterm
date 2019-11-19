@@ -68,6 +68,7 @@ app.get("/", (req, res) => {
   res.render("index", {
     userCookie: req.session.userCookie
   });
+  console.log(userCookie)
 });
 app.get("/login/:user_email", (req, res) => {
   let userEmail = req.params.user_email;
@@ -75,7 +76,7 @@ app.get("/login/:user_email", (req, res) => {
   if (getUserByEmail(userEmail, db)) {
     // res.cookie('userCookie', userEmail)
     req.session.userCookie = userEmail;
-    // console.log(req.session.userCookie);
+    //console.log(req.session.userCookie);
     res.redirect("/");
   }
 

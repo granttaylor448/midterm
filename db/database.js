@@ -27,7 +27,6 @@ const getUserByEmail = function (email, db) {
 exports.getUserByEmail = getUserByEmail;
 
 
-
 const getLastOrder = function () {
   return db.query(`SELECT id FROM orders ORDER BY id desc LIMIT 1 ;
  `).then(res => res.rows);

@@ -5,7 +5,9 @@ const router = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM orders`;
+    let query = `SELECT id FROM orders
+    ORDER BY id desc
+    LIMIT 1`;
     console.log(query);
     db.query(query)
       .then(data => {
@@ -23,11 +25,15 @@ module.exports = (db) => {
       });
   });
 
-  const newOrder = function (user) {
+  const getUserID = function (email) {
+    return db.query(`SELECT id FROM users
+    WHERE users.email = $1;`, [email])
+  }
+
+  // let cookie = req.session.cookie;
+  const newOrder = function (userCookie) {
     return db.query(`INSERT INTO orders (user_id) VALUES ($1)
-    RETURNING *;`, [user])
-      .then(res => console.log('REPLY ', res.rows[0].id))
-      .catch(err => console.error(err));
+    RETURNING *;`, [userCookie])
   }
   exports.newOrder = newOrder;
 
@@ -36,7 +42,6 @@ module.exports = (db) => {
       .then(res => res.rows)
       .catch(err => console.error(err));
   }
-
   exports.fillOrder = fillOrder;
 
   router.post("/", (req, res) => {
@@ -45,14 +50,22 @@ module.exports = (db) => {
     let bodyOrder = JSON.parse(req.body.userOrder)
     console.log('bodyOrder ', bodyOrder);
     //console.log("BODY ",req.body)
-    let orderID = newOrder(userID);
-    console.log('orderID ', orderID.then(res=))
 
-    bodyOrder.forEach((item) =>{
-      console.log("HAHA ",item[0],item[1])
-       fillOrder(item[1], orderID, item[0])
-     })
-     //fillOrder(2,3,8);
+    getUserID(req.session.userCookie)
+      .then(user => { console.log(user.rows[0].id)
+        newOrder(user.rows[0].id)
+          .then(res => {
+            bodyOrder.forEach((item) => {
+              console.log("HAHA ", item[0], res, item[1])
+              fillOrder(item[1], res.rows[0].id, item[0])
+            })
+          })
+          .catch(err => console.error(err));
+      })
+      .catch(err => console.error(err));
+
+
+    //fillOrder(2,3,8);
     res.status(200).send();
   });
 

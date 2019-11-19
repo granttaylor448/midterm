@@ -76,7 +76,7 @@ $(() => {
 const createOrder = function (order) {
   return (`
       <div class="card-body order-summary">
-        <h4 class="card-title">${order.name}</h4>
+        <h4 class="card-title">${order.menu_id}</h4>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
@@ -84,7 +84,7 @@ const createOrder = function (order) {
 }
 
 const renderOrder = function (orders) {
-  $("#menu-items").append(`
+  $("#order-summary-container").append(`
     <div class="card">
       <div class="card-header">
         Your order
@@ -93,12 +93,12 @@ const renderOrder = function (orders) {
     `);
   const menuContainer = $('.order-summary');
   orders.forEach((order) => {
-    if (order.order_id == 1){
+    if (order.order_id == 1) {
       menuContainer.append(createOrder(order))
     }
   })
 }
-
+//console.log('COOKIE ', req.session.cookie)
 $(() => {
   function usersInput() {
     let usersOrder = [];
@@ -126,7 +126,6 @@ $(() => {
       method: 'POST',
       url: "/api/orders",
       data: {
-        number: 1,
         userOrder: output
       }
     }).done((response) => {
@@ -140,6 +139,7 @@ $(() => {
       url: "/api/menu_orders"
     }).done((response) => {
       //console.log(response.menu);
+      $("#menu-items").slideUp('slow')
       renderOrder(response.menu_orders);
     })
   })
