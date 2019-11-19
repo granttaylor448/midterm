@@ -14,6 +14,7 @@ module.exports = (db) => {
     console.log(query, param);
     db.query(query, param)
       .then(data => {
+        
         const menu_orders = data.rows;
         res.json({ menu_orders });
       })

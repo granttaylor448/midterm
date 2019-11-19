@@ -55,8 +55,10 @@ $(() => {
     method: "GET",
     url: "/api/menu"
   }).done((response) => {
-    //console.log(response.menu);
-    renderMenu(response.menu);
+
+    renderMenu(response.menu)
+
+
   })
 
 });
@@ -66,7 +68,7 @@ $(() => {
     method: "GET",
     url: "/api/users"
   }).done((response) => {
-    //console.log(response.menu);
+
     console.log(response.rows);
     response.rows;
   })
@@ -157,7 +159,7 @@ const renderOrder = function (orders) {
 
   orders.forEach((order) => {
     if (order.order_id == getLastOrder(orders)) {
-      if (order.quantity > 0){
+      if (order.quantity > 0) {
         totalPrice += order.price * order.quantity;
       }
       menuContainer.append(createOrder(order))
@@ -198,8 +200,7 @@ $(() => {
 
     let output = JSON.stringify(usersInput());
     console.log('output ', output)
-    // let countVal = $('.count').val();
-    // console.log('countVal ', countVal);
+
     e.preventDefault();
     $.ajax({
       method: 'POST',
@@ -207,20 +208,44 @@ $(() => {
       data: {
         userOrder: output
       }
-    }).done((response) => {
-      //console.log(response.menu);
-      console.log('response ', response);
+    }).then(() => {
+      $.ajax({
+        method: "GET",
+        url: "/api/menu_orders"
+      }).done((response) => {
+
+        localStorage.setItem("isOrdered", "true");
+
+        console.log(response.menu_orders);
+        $("#menu-items").slideUp('slow')
+        renderOrder(response.menu_orders);
+        $("#order-button").hide();
+      });
     })
     usersInput();
 
+
+  })
+
+
+});
+
+$(() => {
+  if (localStorage.getItem("isOrdered") === "true") {
+    $("#menu-items").hide()
+    $("#order-button").hide();
     $.ajax({
       method: "GET",
       url: "/api/menu_orders"
     }).done((response) => {
+
       console.log(response.menu_orders);
-      $("#menu-items").slideUp('slow')
       renderOrder(response.menu_orders);
     })
+  }
+
+  $("#logout").click(function () {
+    localStorage.removeItem('isOrdered');
   })
 
 });

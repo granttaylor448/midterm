@@ -82,8 +82,16 @@ app.get("/login/:user_email", (req, res) => {
 
 });
 
+app.get("/api/menu_orders", (req, res) => {
+
+  req.session.order = order
+
+  // console.log(userCookie)
+});
+
 app.post('/logout', (req, res) => {
   req.session = null;
+  
   res.redirect('/');
  });
 
