@@ -76,10 +76,9 @@ $(() => {
 const createOrder = function (order) {
   return (`
     <tr>
-      <td></td>
       <td>${order.name}</td>
       <td>${order.quantity}</td>
-      <td>${order.price}</td>
+      <td>${order.price*order.quantity}</td>
     </tr>
   `)
 }
@@ -114,12 +113,34 @@ const getLastOrder = function (menu_orders) {
 //   })
 // }
 
+const getTotalPrice = function (menu_orders) {
+  let total = 0
+  for (let item of menu_orders) {
+    if (order.order_id == getLastOrder(orders)) {
+      total += menu_orders[item]['price']
+    }
+  }
+  return total * 1.05;
+}
+const getTotalTax = function (menu_orders) {
+  let total = 0
+  for (let item of menu_orders) {
+    if (order.order_id == getLastOrder(orders)) {
+      total += menu_orders[item]['price']
+    }
+  }
+  return total * 0.05;
+}
+//console.log('Total price ', getTotalPrice(menu_orders))
+
 const renderOrder = function (orders) {
   $("#order-summary-container").append(`
-    <table style="width:100%">
+    <table style="width:100%" class="table table-hover">
     <thead>
     <tr>
       <th>Your order</th>
+    </tr>
+    <tr>
       <th>Dish name</th>
       <th>Quantity</th>
       <th>Price</th>
@@ -127,20 +148,34 @@ const renderOrder = function (orders) {
     </thead>
     <tbody class='order-table-body'>
     </tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td>Tax:2</td>
-        <td>23</td>
-      </tr>
+
     </table>
     `);
   const menuContainer = $('.order-table-body');
+  let totalPrice = 0;
+  let totalTax = 0;
+
   orders.forEach((order) => {
     if (order.order_id == getLastOrder(orders)) {
+      if (order.quantity > 0){
+        totalPrice += order.price * order.quantity;
+      }
       menuContainer.append(createOrder(order))
     }
   })
+
+  console.log('totalPrice ', totalPrice)
+  totalTax = 0.05 * totalPrice;
+  totalPrice += totalTax;
+
+  $('.order-table-body').append(`
+  <tr>
+  <td></td>
+  <td>Tax:$${totalTax}</td>
+  <td>$${totalPrice}</td>
+  </tr>
+`)
+
 }
 
 $(() => {
