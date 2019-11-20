@@ -72,7 +72,6 @@ $(() => {
     console.log(response.rows);
     response.rows;
   })
-
 });
 
 const createOrder = function (order) {
@@ -141,6 +140,7 @@ const renderOrder = function (orders) {
     <thead>
     <tr>
       <th>Your order</th>
+      <th class='time-ready'></th>
     </tr>
     <tr>
       <th>Dish name</th>
@@ -156,11 +156,13 @@ const renderOrder = function (orders) {
   const menuContainer = $('.order-table-body');
   let totalPrice = 0;
   let totalTax = 0;
+  let orderStatus = 0;
 
   orders.forEach((order) => {
     if (order.order_id == getLastOrder(orders)) {
       if (order.quantity > 0) {
         totalPrice += order.price * order.quantity;
+        orderStatus = order.order_status;
       }
       menuContainer.append(createOrder(order))
     }
@@ -169,13 +171,37 @@ const renderOrder = function (orders) {
   totalTax = 0.05 * totalPrice;
   totalPrice += totalTax;
 
-  $('.order-table-body').append(`
-  <tr>
-  <td></td>
-  <td>Tax:$${totalTax}</td>
-  <td>$${totalPrice}</td>
-  </tr>
-`)
+  // $('.order-table-body').append(
+  //   `
+  //     <tr>
+  //     <td class='orderStatus'><strong>Order ready in ${orderStatus}<strong></td>
+  //     <td>Tax:$${totalTax}</td>
+  //     <td>$${totalPrice}</td>
+  //     </tr>
+  //   `
+  // )
+
+  if (orderStatus) {
+    $('.order-table-body').append(
+      `
+        <tr>
+        <td class='orderStatus'><strong>Order ready in ${orderStatus}<strong></td>
+        <td>Tax:$${totalTax}</td>
+        <td>$${totalPrice}</td>
+        </tr>
+      `
+    )
+  } else {
+    $('.order-table-body').append(
+      `
+        <tr>
+        <td class='orderStatus'><strong>We are working on your order<strong></td>
+        <td>Tax:$${totalTax}</td>
+        <td>$${totalPrice}</td>
+        </tr>
+      `
+    )
+  }
 }
 
 $(() => {
@@ -214,18 +240,19 @@ $(() => {
       }).done((response) => {
         console.log('RESPONSE ', response)
 
-        $.ajax({
-          method: 'POST',
-          url: "/sms",
-          data: {
-            response:response.menu_orders[0]
-          }
-        })
+        // $.ajax({
+        //   method: 'POST',
+        //   url: "/sms",
+        //   data: {
+        //     response: response.menu_orders[0]
+        //   }
+        // })
 
         localStorage.setItem("isOrdered", "true");
 
         //console.log(response.menu_orders);
         $("#menu-items").slideUp('slow')
+
         renderOrder(response.menu_orders);
         $("#order-button").hide();
       });

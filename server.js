@@ -63,9 +63,8 @@ app.use("/api/menu", menuRoutes(db));
 app.use("/api/orders", ordersRoutes(db));
 app.use("/api/menu_orders", menu_ordersRoutes(db));
 app.use("/sms", smsRoutes(client, db));
-app.use("/sms-response", smsRoutes(client, db));
+app.use("/sms/sms-response", smsRoutes());
 // Note: mount other resources here, using the same pattern above
-
 
 // Home page
 // Warning: avoid creating more routes in this file!
