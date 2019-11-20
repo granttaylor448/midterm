@@ -10,9 +10,12 @@ const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require('morgan');
 const {
-  getUserByEmail,
-  newOrder
+  getUserByEmail
 } = require('./db/database')
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
 
 // PG database client/connection setup
 const {
@@ -51,6 +54,7 @@ const usersRoutes = require("./routes/users");
 const menuRoutes = require("./routes/menu");
 const ordersRoutes = require("./routes/orders");
 const menu_ordersRoutes = require("./routes/menu_orders");
+const smsRoutes = require("./routes/sms");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -58,6 +62,8 @@ app.use("/api/users", usersRoutes(db));
 app.use("/api/menu", menuRoutes(db));
 app.use("/api/orders", ordersRoutes(db));
 app.use("/api/menu_orders", menu_ordersRoutes(db));
+app.use("/sms", smsRoutes(client, db));
+app.use("/sms-response", smsRoutes(client, db));
 // Note: mount other resources here, using the same pattern above
 
 
@@ -91,13 +97,22 @@ app.get("/api/menu_orders", (req, res) => {
 
 app.post('/logout', (req, res) => {
   req.session = null;
-  
+
   res.redirect('/');
  });
 
-//  app.post('/api/orders', (req,res) =>{
-//    newOrder(1, db);
-//  })
+ app.post('/sms/receive', function(req, res) {
+  // var twilio = require('twilio');
+  // var twiml = new twilio.twiml.MessagingResponse();
+
+  // if (req.body.Body == 'hello') {
+  //   twiml.message('Hi!');
+  // }
+  // twiml.message('The Robots11 are coming! Head for the hills!');
+  // res.writeHead(200, {'Content-Type': 'text/xml'});
+  // res.end(twiml.toString());
+ });
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

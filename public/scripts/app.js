@@ -166,7 +166,6 @@ const renderOrder = function (orders) {
     }
   })
 
-  console.log('totalPrice ', totalPrice)
   totalTax = 0.05 * totalPrice;
   totalPrice += totalTax;
 
@@ -177,7 +176,6 @@ const renderOrder = function (orders) {
   <td>$${totalPrice}</td>
   </tr>
 `)
-
 }
 
 $(() => {
@@ -208,25 +206,34 @@ $(() => {
       data: {
         userOrder: output
       }
-    }).then(() => {
+    }).then((response) => {
+
       $.ajax({
         method: "GET",
         url: "/api/menu_orders"
       }).done((response) => {
+        console.log('RESPONSE ', response)
+
+        $.ajax({
+          method: 'POST',
+          url: "/sms",
+          data: {
+            response:response.menu_orders[0]
+          }
+        })
 
         localStorage.setItem("isOrdered", "true");
 
-        console.log(response.menu_orders);
+        //console.log(response.menu_orders);
         $("#menu-items").slideUp('slow')
         renderOrder(response.menu_orders);
         $("#order-button").hide();
       });
+
     })
     usersInput();
 
-
   })
-
 
 });
 
@@ -239,7 +246,6 @@ $(() => {
       url: "/api/menu_orders"
     }).done((response) => {
 
-      console.log(response.menu_orders);
       renderOrder(response.menu_orders);
     })
   }
