@@ -45,28 +45,22 @@ module.exports = (client, db) => {
 
         var twiml = new Twilio.twiml.MessagingResponse();
         let reply = req.body.Body;
+        //console.log('TYYYYYPE ',typeof reply)
 
-        // console.log('REEEEQ BODY ', req.body.Body)
-        // console.log('REEEES ', res.body)
 
-        // let alterTableQuery = `ALTER TABLE menu_orders
-        // ADD order_status SMALLINT DEFAULT 0;`
-        // db.query(alterTableQuery);
 
-        let params = [reply, data.rows[0].id];
-        let insertReplyQuery = `UPDATE menu_orders SET order_status  = $1 WHERE menu_orders.order_id = $2;`;
-        db.query(insertReplyQuery, params);
+          let params = [reply, data.rows[0].id];
+          let insertReplyQuery = `UPDATE menu_orders SET order_status  = $1 WHERE menu_orders.order_id = $2;`;
+          db.query(insertReplyQuery, params);
 
-        twiml.message({
-          to: `+${userPhone}`
-        }, `Your order will be ready in ${reply} minutes`);
-
+          twiml.message({
+            to: `+${userPhone}`
+          }, `Your order will be ready in ${reply} minutes`);
         res.writeHead(200, {
           'Content-Type': 'text/xml'
         });
         res.end(twiml.toString());
       })
-
   })
   // }
   // )

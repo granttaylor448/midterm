@@ -52,21 +52,23 @@ module.exports = (db) => {
     //console.log("BODY ",req.body)
 
     getUserID(req.session.userCookie)
-      .then(user => { console.log(user.rows[0].id)
+      .then(user => {
+        console.log(user.rows[0].id)
         newOrder(user.rows[0].id)
-          .then(res => {
+          .then(result => {
             bodyOrder.forEach((item) => {
-              console.log("HAHA ", item[0], res, item[1])
-              fillOrder(item[1], res.rows[0].id, item[0])
+              console.log("HAHA ", item[0], result, item[1])
+              fillOrder(item[1], result.rows[0].id, item[0])
             })
+
+            res.status(200).send();
           })
           .catch(err => console.error(err));
-      })
-      .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
 
 
     //fillOrder(2,3,8);
-    res.status(200).send();
   });
 
 

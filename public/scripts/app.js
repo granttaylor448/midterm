@@ -58,7 +58,6 @@ $(() => {
 
     renderMenu(response.menu)
 
-
   })
 
 });
@@ -185,12 +184,13 @@ const renderOrder = function (orders) {
     $('.order-table-body').append(
       `
         <tr>
-        <td class='orderStatus'><strong>Order ready in ${orderStatus}<strong></td>
+        <td class='orderStatus'><strong>Order ready in ${orderStatus} minutes<strong></td>
         <td>Tax:$${totalTax}</td>
         <td>$${totalPrice}</td>
         </tr>
       `
     )
+
   } else {
     $('.order-table-body').append(
       `
@@ -202,9 +202,32 @@ const renderOrder = function (orders) {
       `
     )
   }
+
+  setInterval(function () {
+
+    $.ajax({
+      method: "GET",
+      url: "/api/menu_orders"
+    }).then(orders => {
+      let orderStatus = 0;
+
+      orders.menu_orders.forEach((order) => {
+        if (order.order_id == getLastOrder(orders.menu_orders)) {
+          orderStatus = order.order_status;
+        }
+      })
+      if (orderStatus > 0) {
+        $("td.orderStatus").replaceWith(`<td class='orderStatus text-danger'><strong><h5>Order ready in ${orderStatus} minutes</h5><strong></td>`);
+        $("td.orderStatus").animate({color:'red'});
+      }
+    })
+  }, 5000)
 }
 
+
 $(() => {
+
+
   function usersInput() {
     let usersOrder = [];
     let menuId = document.getElementsByClassName('menu-title');
@@ -219,46 +242,54 @@ $(() => {
     return usersOrder;
   }
 
-
   $("#order-button").click(function (e) {
 
     let output = JSON.stringify(usersInput());
-    console.log('output ', output)
+    console.log('out4444put ', output.length)
+    // output length is two because of json stringify
+    if (output.length > 2) {
 
-    e.preventDefault();
-    $.ajax({
-      method: 'POST',
-      url: "/api/orders",
-      data: {
-        userOrder: output
-      }
-    }).then((response) => {
-
+      e.preventDefault();
       $.ajax({
-        method: "GET",
-        url: "/api/menu_orders"
-      }).done((response) => {
-        console.log('RESPONSE ', response)
+        method: 'POST',
+        url: "/api/orders",
+        data: {
+          userOrder: output
+        }
+      }).then((response) => {
 
-        // $.ajax({
-        //   method: 'POST',
-        //   url: "/sms",
-        //   data: {
-        //     response: response.menu_orders[0]
-        //   }
-        // })
+        $.ajax({
+          method: "GET",
+          url: "/api/menu_orders"
+        }).done((response) => {
+          console.log('RESPONSE ', response)
 
-        localStorage.setItem("isOrdered", "true");
+          $.ajax({
+            method: 'POST',
+            url: "/sms",
+            data: {
+              response: response.menu_orders[0]
+            }
+          })
 
-        //console.log(response.menu_orders);
-        $("#menu-items").slideUp('slow')
+          localStorage.setItem("isOrdered", "true");
 
-        renderOrder(response.menu_orders);
-        $("#order-button").hide();
-      });
+          //console.log(response.menu_orders);
+          $("#menu-items").slideUp('slow')
 
-    })
-    usersInput();
+          renderOrder(response.menu_orders);
+          $("#order-button").hide();
+        });
+
+      })
+
+      // setTimeout(function () {
+      //   window.location.reload(1);
+      // }, 60000);
+
+    } else {
+      window.alert('Please enter you data..')
+    }
 
   })
 
@@ -280,5 +311,11 @@ $(() => {
   $("#logout").click(function () {
     localStorage.removeItem('isOrdered');
   })
+
+  // $("#order-ready-button").click(function () {
+
+  //   $('.order-table-body').load(
+  //    '/' )
+  //   })
 
 });

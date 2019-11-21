@@ -53,6 +53,9 @@
   </div> -->
 
   <div class="entire_body_container">
+      <% if(!userCookie) {%>
+        <h5> Please log in to make an order</h5>
+        <% } %>
     <form action="#" method="#">
 
       <section id="menu-items">
@@ -87,8 +90,10 @@
       <section id="order-summary-container"></section>
 
   </div>
-
-  <input id='order-button' type='submit' class="order-button" name='order' value="Order" />
+  <% if(userCookie) {%>
+  <input id='order-button' type='submit' class="order-button" name='order' value="Order" required/>
+  <% } %>
+  <!-- <input id='order-ready-button' type='submit' class="order-button" name='orderReadyButton' value="Check order status" required/> -->
   </form>
 
   <% include ../public/partials/_footer %>
