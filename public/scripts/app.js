@@ -1,15 +1,4 @@
-// $(() => {
-// $.ajax({
-// method: "GET",
-// url: "/api/users"
-// }).done((users) => {
-// for (user of users) {
-// $("<div>").text(user.name).appendTo($("body"));
-// }
-// });;
-// });
-
-const createMenu = function (menu) {
+const createMenu = function(menu) {
   return (
     ` <article class="card menu-items__card p-3 mb-3">
 
@@ -34,29 +23,30 @@ const createMenu = function (menu) {
           </div>
 
           <div id='qty' class="qty">
-            <input type="number" class="count" name="qty" value="0" min='0' max='10'>
+            <input type="number" class="counter" name="qty" value="0" min='0' max='10'>
           </div>
         </div>
       </article>`
-  )
-}
+  );
+};
 
-const renderMenu = function (menuElements) {
+const renderMenu = function(menuElements) {
   const menuContainer = $('#menu-items');
   menuElements.forEach((menu) => {
-    menuContainer.append(createMenu(menu))
-  })
-}
+    menuContainer.append(createMenu(menu));
+  });
+};
 
 $(() => {
+
   $.ajax({
     method: "GET",
     url: "/api/menu"
   }).done((response) => {
 
-    renderMenu(response.menu)
+    renderMenu(response.menu);
 
-  })
+  });
 
 });
 
@@ -65,73 +55,50 @@ $(() => {
     method: "GET",
     url: "/api/users"
   }).done((response) => {
-
-    console.log(response.rows);
     response.rows;
-  })
+  });
 });
 
-const createOrder = function (order) {
+const createOrder = function(order) {
   return (`
     <tr>
       <td>${order.name}</td>
       <td>${order.quantity}</td>
-      <td>${order.price*order.quantity}</td>
+      <td>${order.price * order.quantity}</td>
     </tr>
-  `)
-}
+  `);
+};
 
-const getLastOrder = function (menu_orders) {
+const getLastOrder = function(menu_orders) {
   let max = 0;
   for (let item in menu_orders) {
     if (menu_orders[item]['order_id'] > max) {
       max = menu_orders[item]['order_id'];
     }
   }
-  return max
-}
+  return max;
+};
 
-// const renderOrder = function (orders) {
-//   $("#order-summary-container").append(`
-//     <div class="card">
-//       <div class="card-header">
-//         Your order
-//       </div>
-//     <div class="order-summary">
-//        <div>Dish name</div>
-//        <div>Quantity</div>
-//        <div>Price</div>
-//     </div>
-//     `);
-//   const menuContainer = $('.order-summary');
-//   orders.forEach((order) => {
-//     if (order.order_id == getLastOrder(orders)) {
-//       menuContainer.append(createOrder(order))
-//     }
-//   })
-// }
-
-const getTotalPrice = function (menu_orders) {
-  let total = 0
+const getTotalPrice = function(menu_orders) {
+  let total = 0;
   for (let item of menu_orders) {
     if (order.order_id == getLastOrder(orders)) {
-      total += menu_orders[item]['price']
+      total += menu_orders[item]['price'];
     }
   }
   return total * 1.05;
-}
-const getTotalTax = function (menu_orders) {
-  let total = 0
+};
+const getTotalTax = function(menu_orders) {
+  let total = 0;
   for (let item of menu_orders) {
     if (order.order_id == getLastOrder(orders)) {
-      total += menu_orders[item]['price']
+      total += menu_orders[item]['price'];
     }
   }
   return total * 0.05;
-}
-//console.log('Total price ', getTotalPrice(menu_orders))
+};
 
-const renderOrder = function (orders) {
+const renderOrder = function(orders) {
   $("#order-summary-container").append(`
     <table style="width:100%" class="table table-hover">
     <thead>
@@ -161,26 +128,14 @@ const renderOrder = function (orders) {
         totalPrice += order.price * order.quantity;
         orderStatus = order.order_status;
       }
-      menuContainer.append(createOrder(order))
+      menuContainer.append(createOrder(order));
     }
-  })
+  });
 
   totalTax = (0.05 * totalPrice).toFixed(2);
 
   totalPrice += Number(totalTax);
-  totalPrice.toFixed(2)
-
-
-
-  // $('.order-table-body').append(
-  //   `
-  //     <tr>
-  //     <td class='orderStatus'><strong>Order ready in ${orderStatus}<strong></td>
-  //     <td>Tax:$${totalTax}</td>
-  //     <td>$${totalPrice}</td>
-  //     </tr>
-  //   `
-  // )
+  totalPrice.toFixed(2);
 
   if (orderStatus) {
     $('.order-table-body').append(
@@ -191,7 +146,7 @@ const renderOrder = function (orders) {
         <td>$${totalPrice}</td>
         </tr>
       `
-    )
+    );
 
   } else {
     $('.order-table-body').append(
@@ -202,10 +157,10 @@ const renderOrder = function (orders) {
         <td>$${totalPrice}</td>
         </tr>
       `
-    )
+    );
   }
 
-  setInterval(function () {
+  setInterval(function() {
 
     $.ajax({
       method: "GET",
@@ -217,16 +172,16 @@ const renderOrder = function (orders) {
         if (order.order_id == getLastOrder(orders.menu_orders)) {
           orderStatus = order.order_status;
         }
-      })
+      });
       if (orderStatus > 0) {
         $("td.orderStatus").replaceWith(`<td class='orderStatus text-danger'><strong><h5>Order ready in ${orderStatus} minutes</h5><strong></td>`);
         $("td.orderStatus").animate({
           color: 'red'
         });
       }
-    })
-  }, 5000)
-}
+    });
+  }, 5000);
+};
 
 
 $(() => {
@@ -237,20 +192,17 @@ $(() => {
     let menuId = document.getElementsByClassName('menu-title');
     let elements = document.getElementsByClassName("count");
 
-    for (var i = 0; i < elements.length; i++) {
+    for (let i = 0; i < elements.length; i++) {
       if (Number(elements[i].value) >= 1) {
-        usersOrder.push([Number(elements[i].value), Number(menuId[i].getAttribute('value'))])
+        usersOrder.push([Number(elements[i].value), Number(menuId[i].getAttribute('value'))]);
       }
     }
-    //console.log('usersOrder ', usersOrder);
     return usersOrder;
   }
 
-  $("#order-button").click(function (e) {
+  $("#order-button").click(function(e) {
 
     let output = JSON.stringify(usersInput());
-    console.log('out4444put ', output.length)
-    // output length is two because of json stringify
     if (output.length > 2) {
 
       e.preventDefault();
@@ -266,42 +218,35 @@ $(() => {
           method: "GET",
           url: "/api/menu_orders"
         }).done((response) => {
-          console.log('RESPONSE ', response)
-
           $.ajax({
             method: 'POST',
             url: "/sms",
             data: {
               response: response.menu_orders[0]
             }
-          })
+          });
 
           localStorage.setItem("isOrdered", "true");
 
-          //console.log(response.menu_orders);
-          $("#menu-items").slideUp('slow')
+          $("#menu-items").slideUp('slow');
 
           renderOrder(response.menu_orders);
           $("#order-button").hide();
         });
 
-      })
-
-      // setTimeout(function () {
-      //   window.location.reload(1);
-      // }, 60000);
+      });
 
     } else {
-      window.alert('Please enter you data..')
+      window.alert('Please choose dishes and their number');
     }
 
-  })
+  });
 
 });
 
 $(() => {
   if (localStorage.getItem("isOrdered") === "true") {
-    $("#menu-items").hide()
+    $("#menu-items").hide();
     $("#order-button").hide();
     $.ajax({
       method: "GET",
@@ -309,17 +254,11 @@ $(() => {
     }).done((response) => {
 
       renderOrder(response.menu_orders);
-    })
+    });
   }
 
-  $("#logout").click(function () {
+  $("#logout").click(function() {
     localStorage.removeItem('isOrdered');
-  })
-
-  // $("#order-ready-button").click(function () {
-
-  //   $('.order-table-body').load(
-  //    '/' )
-  //   })
+  });
 
 });
