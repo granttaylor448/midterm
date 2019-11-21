@@ -1,6 +1,6 @@
 // See: https://sass-lang.com/
 //$primary-color:
-$secondary-color: lightgreen;
+$secondary-color: #fceb92;
 $st-bg-color: #17a2b8;
 
 html {
@@ -12,7 +12,7 @@ html {
 // font-family: Source Sans Pro, sans-serif;
 
 body {
-  background-color: #eee;
+  background-color: #d6cb95;
   * {
     margin: 0;
     padding: 0;
@@ -31,6 +31,10 @@ nav.navbar {
 .navbar-brand {
   font-size: 2rem;
   margin-right: 0;
+}
+
+.header-footer-color {
+  background-color: $secondary-color;
 }
 
 // ---------------------------
@@ -117,7 +121,7 @@ nav.navbar {
   img {
     max-width: 250px;
     width: 100%;
-    height: auto;
+    height: 150px;
   }
 }
 
@@ -166,7 +170,7 @@ footer {
   bottom: 30px;
   right: 15px;
   opacity: 0.9;
-  background-color: red;
+  background-color: chocolate;
   color: white;
   width: 80px;
   height: 40px;
