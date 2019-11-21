@@ -27,6 +27,20 @@ const getUserByEmail = function (email, db) {
 exports.getUserByEmail = getUserByEmail;
 
 
+const getLastOrder = function () {
+  return db.query(`SELECT id FROM orders ORDER BY id desc LIMIT 1 ;
+ `).then(res => res.rows);
+}
+exports.getLastOrder = getLastOrder;
+
+
+// const newOrder = function (user) {
+//   return db.query(`INSERT INTO orders (user_id) VALUES ($1);`, [user])
+//     .then(res => res.rows)
+//     .catch(err => console.error(err));
+// }
+// exports.newOrder = newOrder;
+
 
 //  // apiroutes file
 //  module.exports = function(router, database) {

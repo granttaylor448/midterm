@@ -13,6 +13,10 @@ const {
   getUserByEmail
 } = require('./db/database')
 
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
+
 // PG database client/connection setup
 const {
   Pool
@@ -50,6 +54,7 @@ const usersRoutes = require("./routes/users");
 const menuRoutes = require("./routes/menu");
 const ordersRoutes = require("./routes/orders");
 const menu_ordersRoutes = require("./routes/menu_orders");
+const smsRoutes = require("./routes/sms");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -57,8 +62,9 @@ app.use("/api/users", usersRoutes(db));
 app.use("/api/menu", menuRoutes(db));
 app.use("/api/orders", ordersRoutes(db));
 app.use("/api/menu_orders", menu_ordersRoutes(db));
+app.use("/sms", smsRoutes(client, db));
+app.use("/sms/sms-response", smsRoutes());
 // Note: mount other resources here, using the same pattern above
-
 
 // Home page
 // Warning: avoid creating more routes in this file!
@@ -67,6 +73,7 @@ app.get("/", (req, res) => {
   res.render("index", {
     userCookie: req.session.userCookie
   });
+  // console.log(userCookie)
 });
 app.get("/login/:user_email", (req, res) => {
   let userEmail = req.params.user_email;
@@ -74,16 +81,37 @@ app.get("/login/:user_email", (req, res) => {
   if (getUserByEmail(userEmail, db)) {
     // res.cookie('userCookie', userEmail)
     req.session.userCookie = userEmail;
-    // console.log(req.session.userCookie);
+    //console.log(req.session.userCookie);
     res.redirect("/");
   }
 
 });
 
+app.get("/api/menu_orders", (req, res) => {
+
+  req.session.order = order
+
+  // console.log(userCookie)
+});
+
 app.post('/logout', (req, res) => {
   req.session = null;
+
   res.redirect('/');
  });
+
+ app.post('/sms/receive', function(req, res) {
+  // var twilio = require('twilio');
+  // var twiml = new twilio.twiml.MessagingResponse();
+
+  // if (req.body.Body == 'hello') {
+  //   twiml.message('Hi!');
+  // }
+  // twiml.message('The Robots11 are coming! Head for the hills!');
+  // res.writeHead(200, {'Content-Type': 'text/xml'});
+  // res.end(twiml.toString());
+ });
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

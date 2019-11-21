@@ -3,20 +3,64 @@
 <body>
   <% include ../public/partials/_header %>
 
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="10000000000000">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" >
+        <div class="carousel-item main-image active">
+          <img class="d-block w-100" src="/images/thai-dishes-thailand-cuisine-2.png" alt="First slide">
+          <div class="carousel-caption k">
+              <h2 class="display-1">Thai Time</h2>
+              <p class="lead">Offering Calgary's best Thai food since 1957</p>
+            </div>
+        </div>
+        <div class="carousel-item main-image">
+          <img class="d-block w-100" src="/images/thai-dishes-thailand-cuisine-2.png" alt="Second slide">
+          <div class="carousel-caption ">
+              <h2 class="display-1">Gr8 time!</h2>
+              <p class="lead">Offering Calgary's best Thai food since 1957</p>
+            </div>
+        </div>
+        <div class="carousel-item main-image">
+          <img class="d-block w-100" src="/images/thai-dishes-thailand-cuisine-2.png" alt="Third slide">
+          <div class="carousel-caption ">
+              <h2 class="display-1">Fun time</h2>
+              <p class="lead">Offering Calgary's best Thai food since 1957</p>
+            </div>
+        </div>
+      </div>
+      <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a> -->
+    </div>
 
-  <div class="jumbotron jumbotron bg-image">
+
+
+
+  <!-- <div class="jumbotron jumbotron bg-image">
     <div class="container">
       <h1 class="display-1">Thai Time</h1>
       <p class="lead">Offering Calgary's best Thai food since 1957</p>
     </div>
-  </div>
+  </div> -->
 
   <div class="entire_body_container">
+      <% if(!userCookie) {%>
+        <h5> Please log in to make an order</h5>
+        <% } %>
+    <form action="#" method="#">
 
+      <section id="menu-items">
 
-    <section id="menu-items">
-
-      <!-- <div class="card menu-items__card p-3 mb-3">
+        <!-- <div class="card menu-items__card p-3 mb-3">
 
         <div class="card-header menu-title-price">
           Fried rice Fried rice Fried rice
@@ -42,9 +86,15 @@
         </div>
       </div> -->
 
-    </section>
+      </section>
+      <section id="order-summary-container"></section>
 
   </div>
+  <% if(userCookie) {%>
+  <input id='order-button' type='submit' class="order-button" name='order' value="Order" required/>
+  <% } %>
+  <!-- <input id='order-ready-button' type='submit' class="order-button" name='orderReadyButton' value="Check order status" required/> -->
+  </form>
 
   <% include ../public/partials/_footer %>
 
@@ -62,59 +112,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
-  <script>
-    $(document).ready(function () {
-
-
-
-      // let menuCounter = $(".menu-counter").val();
-      // console.log('menuCounter ', menuCounter)
-
-      // function showDivValues() {
-      //   let elements = document.getElementsByClassName("menu-counter");
-      //   let val = elements[0];
-      //   console.log('val ', val);
-      //   console.log('elements ', elements);
-
-      //   // for (let i = 0; i < 5; i++) {
-      //   //   console.log('LOOPING', document.getElementsByClassName("menu-counter")[i]);
-      //   // }
-      // }
-
-      // showDivValues();
-
-
-
-
-      // $(document).on('click', '.plus', function () {
-      //   if ($('.count').val() >= 10) {
-      //     $('.count').val('10');
-      //     $('.count').prop('disabled', true);
-      //   } else {
-      //     $('.count').val(parseInt($('.count').val()) + 1);
-      //   }
-      // });
-      // $(document).on('click', '.minus', function () {
-
-      //   if ($('.count').val() <= 0) {
-      //     $('.count').val('0');
-      //     $('.count').prop('disabled', true);
-      //   } else {
-      //     $('.count').val(parseInt($('.count').val()) - 1);
-      //   }
-      // });
-    });
 
   </script>
-  <script>
-    window.addEventListener('load', function () {
-      let elements = document.getElementsByClassName("count");
-      console.log('elements ', elements);
-      console.log('elements[0] ', elements[0]);
-      return elements[0]
-    })
 
-  </script>
 </body>
 
 </html>
