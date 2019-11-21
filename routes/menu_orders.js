@@ -10,11 +10,10 @@ module.exports = (db) => {
     JOIN users ON users.id = user_id
     WHERE users.email = $1
     ;`;
-    let param = [req.session.userCookie]
-    console.log(query, param);
+    let param = [req.session.userCookie];
     db.query(query, param)
       .then(data => {
-        
+
         const menu_orders = data.rows;
         res.json({ menu_orders });
       })

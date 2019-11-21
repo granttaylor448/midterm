@@ -4,46 +4,37 @@
   <% include ../public/partials/_header %>
 
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="10000">
-      <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner" >
-        <div class="carousel-item main-image active">
-          <img class="d-block w-100" src="/images/thai-dishes-thailand-cuisine-2.png" alt="First slide">
-          <div class="carousel-caption k">
-              <h2 class="display-1">Thai Time</h2>
-              <p class="lead">Offering Calgary's best Thai food since 1957</p>
-            </div>
-        </div>
-        <div class="carousel-item main-image">
-          <img class="d-block w-100" src="/images/thai-dish.png" alt="Second slide">
-          <div class="carousel-caption ">
-              <h2 class="display-1">Thai Time</h2>
-              <p class="lead">Offering Calgary's best Thai food since 1957</p>
-            </div>
-        </div>
-        <div class="carousel-item main-image">
-          <img class="d-block w-100" src="/images/thai-soup.png" alt="Third slide">
-          <div class="carousel-caption ">
-              <h2 class="display-1">Thai Time</h2>
-              <p class="lead">Offering Calgary's best Thai food since 1957</p>
-            </div>
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item main-image active">
+        <img class="d-block w-100" src="/images/thai-dishes-thailand-cuisine-2.png" alt="First slide">
+        <div class="carousel-caption k">
+          <h2 class="display-1">Thai Time</h2>
+          <p class="lead">Offering Calgary's best Thai food since 1957</p>
         </div>
       </div>
-      <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a> -->
+      <div class="carousel-item main-image">
+        <img class="d-block w-100" src="/images/thai-dish.png" alt="Second slide">
+        <div class="carousel-caption ">
+          <h2 class="display-1">Thai Time</h2>
+          <span id='type-writer' class="type-effect  type-writer lead"></span>
+          <p class="lead">Offering Calgary's best Thai food since 1957</p>
+        </div>
+      </div>
+      <div class="carousel-item main-image">
+        <img class="d-block w-100" src="/images/thai-soup.png" alt="Third slide">
+        <div class="carousel-caption ">
+          <h2 class="display-1">Thai Time</h2>
+          <span id='type-writer' class="type-effect type-writer lead"></span>
+          <p class="lead">Offering Calgary's best Thai food since 1957</p>
+        </div>
+      </div>
     </div>
-
-
-
+  </div>
 
   <!-- <div class="jumbotron jumbotron bg-image">
     <div class="container">
@@ -53,48 +44,26 @@
   </div> -->
 
   <div class="entire_body_container">
-      <% if(!userCookie) {%>
-        <h5> Please log in to make an order</h5>
-        <% } %>
+    <% if(!userCookie) {%>
+    <h5> Please log in to make an order</h5>
+    <% } %>
     <form action="#" method="#">
 
       <section id="menu-items">
-
-        <!-- <div class="card menu-items__card p-3 mb-3">
-
-        <div class="card-header menu-title-price">
-          Fried rice Fried rice Fried rice
-
-          <div class="menu-price">
-            <h5>25</h5>
-          </div>
-        </div>
-
-        <div class="menu-items__flex">
-          <img class="menu-image inline" src="../images/fried_rice.png" alt="fried_rice">
-          <div class="card-body inline">
-            <p class="card-text text-justify">With supporting text below as a natural lead-in to additional content.
-              With supporting
-              text below as a natural lead-in to additional content.</p>
-          </div>
-
-          <div class="qty">
-            <span class="minus bg-danger">-</span>
-            <input type="number" class="count" name="qty" value="0">
-            <span class="plus bg-danger">+</span>
-          </div>
-        </div>
-      </div> -->
-
       </section>
       <section id="order-summary-container"></section>
 
   </div>
   <% if(userCookie) {%>
-  <input id='order-button' type='submit' class="order-button" name='order' value="Order" required/>
+  <input id='order-button' type='submit' class="order-button" name='order' value="Order" required />
   <% } %>
-  <!-- <input id='order-ready-button' type='submit' class="order-button" name='orderReadyButton' value="Check order status" required/> -->
   </form>
+
+  <!-- <div class="restaurant-map"> -->
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2508.3944423139146!2d-114.06598578424692!3d51.04580417956196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53716ffdc6d0800f%3A0x9ce05fc625a3e50c!2s112%208%20Ave%20SW%2C%20Calgary%2C%20AB%20T2P%200W5!5e0!3m2!1sen!2sca!4v1574358773507!5m2!1sen!2sca"
+    width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+  <!-- </div> -->
 
   <% include ../public/partials/_footer %>
 
@@ -109,6 +78,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
+
 </body>
 
 </html>

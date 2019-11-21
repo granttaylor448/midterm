@@ -66,10 +66,12 @@ nav.navbar {
 .display-1 {
   color: white;
   font-size: 3.5rem;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .lead {
   font-size: 1.3rem;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .carousel-inner {
@@ -86,7 +88,6 @@ nav.navbar {
   div {
     margin-bottom: 60px;
   }
-
 }
 
 // ---------------------------
@@ -125,9 +126,13 @@ nav.navbar {
   }
 }
 
-.menu-counter {
+.counter {
   width: 100px;
-  border: 2px solid red;
+  height: 30px;
+  background-color: chocolate;
+  font-size: 1.5rem;
+  text-align: center;
+  border: none;
 }
 
 // ---------------------------
@@ -135,46 +140,19 @@ nav.navbar {
 // ---------------------------
 
 // ---------------------------
-//Order summary
+//Order button and map
 // ---------------------------
-
-// .order-items {
-//  display: flex;
-//  justify-content: space-between;
-//  border: 1px solid red;
-
-//  div {
-//    text-align: center;
-//  }
-// }
-
-// .order-summary {
-//   display: flex;
-//  justify-content: space-between;
-// }
-
-// ---------------------------
-//Order summary end
-// ---------------------------
-
-footer {
-  bottom:0;
-  color: #343a40;
-  a {
-    color: #343a40;
-  }
-}
 
 .order-button {
   position: fixed;
   bottom: 30px;
   right: 15px;
-  opacity: 0.9;
+  opacity: 0.8;
   background-color: chocolate;
   color: white;
   width: 80px;
   height: 40px;
-  border-radius: 15%;
+  border-radius: 5px;
   border: none;
 
   &:hover {
@@ -182,6 +160,35 @@ footer {
     cursor: pointer;
   }
 }
+
+iframe {
+  display: block;
+  padding: 0 5px;
+  margin: 0 auto 10px;
+  width: 500px;
+  max-width: 100%;
+  height: 300px;
+}
+
+// ---------------------------
+//Order button and map end
+// ---------------------------
+
+// ---------------------------
+//Footer
+// ---------------------------
+
+footer {
+  bottom: 0;
+  color: #343a40;
+  a {
+    color: #343a40;
+  }
+}
+
+// ---------------------------
+//Footer end
+// ---------------------------
 
 // ---------------------------
 //Media querires
@@ -203,6 +210,12 @@ footer {
 
   .entire_body_container {
     max-width: 80%;
+  }
+
+  .counter {
+    width: 80px;
+    height: 30px;
+    font-size: 1.3rem;
   }
 }
 
@@ -227,3 +240,4 @@ footer {
 // ---------------------------
 //Media querires end
 // ---------------------------
+
