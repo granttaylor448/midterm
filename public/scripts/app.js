@@ -20,7 +20,7 @@ const createMenu = function (menu) {
         </div>
 
           <div class="menu-price">
-            <h5>${menu.price}</h5>
+            <h5>$${menu.price}</h5>
           </div>
 
         </div>
@@ -34,9 +34,7 @@ const createMenu = function (menu) {
           </div>
 
           <div id='qty' class="qty">
-            <span class="minus bg-danger">-</span>
             <input type="number" class="count" name="qty" value="0" min='0' max='10'>
-            <span class="plus bg-danger">+</span>
           </div>
         </div>
       </article>`
@@ -167,8 +165,12 @@ const renderOrder = function (orders) {
     }
   })
 
-  totalTax = 0.05 * totalPrice;
-  totalPrice += totalTax;
+  totalTax = (0.05 * totalPrice).toFixed(2);
+
+  totalPrice += Number(totalTax);
+  totalPrice.toFixed(2)
+
+
 
   // $('.order-table-body').append(
   //   `
@@ -218,7 +220,9 @@ const renderOrder = function (orders) {
       })
       if (orderStatus > 0) {
         $("td.orderStatus").replaceWith(`<td class='orderStatus text-danger'><strong><h5>Order ready in ${orderStatus} minutes</h5><strong></td>`);
-        $("td.orderStatus").animate({color:'red'});
+        $("td.orderStatus").animate({
+          color: 'red'
+        });
       }
     })
   }, 5000)
