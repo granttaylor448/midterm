@@ -13,12 +13,16 @@ Grant Taylor
 - After placing an order, the restaurant receives an message outlining the order the client just made. The restaurant responds and the customer receives a message about how long until his meal will be ready for pickup. Once the restaurant sends the text, the page auto updates, without refresh, to display how long until the meal is ready. 
 -The project is hosted on Heroku
 
+## Screenshot of front page
 !["Screenshot of front page"](https://github.com/granttaylor448/midterm/blob/master/public/images/orderz-1.png?raw=true)
 
+## Screenshot of embedded google map
 !["Screenshot of embedded google map"](https://github.com/granttaylor448/midterm/blob/master/public/images/orderz-2.png?raw=true)
 
+## Screenshot of the page for mobiles
 !["Screenshot of the page for mobiles"](https://github.com/granttaylor448/midterm/blob/master/public/images/orderz-3.png?raw=true)
 
+## Screenshot of order summary
 !["Screenshot of order summary"](https://github.com/granttaylor448/midterm/blob/master/public/images/orderz-4.png?raw=true)
 
 ## Getting Started
