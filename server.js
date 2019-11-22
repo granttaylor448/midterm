@@ -13,6 +13,7 @@ const {
   getUserByEmail
 } = require('./db/database')
 
+const stripe = require('stripe')('sk_test_jtfqKWVP9pjeYFF65CewtswD00sqjK02iA');
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
@@ -30,6 +31,8 @@ app.use(cookieSession({
   name: 'session',
   keys: ['1']
 }));
+// const KeySecret = sk_test_jtfqKWVP9pjeYFF65CewtswD00sqjK02iA
+// const KeyPublishable = pk_test_vzAvHy9DyOYmnXgn5fLZ3YEZ00xwGEz8Pv
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -60,7 +63,7 @@ const smsRoutes = require("./routes/sms");
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/menu", menuRoutes(db));
-app.use("/api/orders", ordersRoutes(db));
+app.use("/api/orders", ordersRoutes(db, stripe));
 app.use("/api/menu_orders", menu_ordersRoutes(db));
 app.use("/sms", smsRoutes(client, db));
 app.use("/sms/sms-response", smsRoutes());
@@ -112,7 +115,24 @@ app.post('/logout', (req, res) => {
   // res.end(twiml.toString());
  });
 
+//  const stripe = require('stripe')('sk_test_jtfqKWVP9pjeYFF65CewtswD00sqjK02iA');
+// const stripe = require('stripe')('sk_test_jtfqKWVP9pjeYFF65CewtswD00sqjK02iA');
+// (async () => {
+//   const paymentIntent = await stripe.paymentIntents.create({
+//     amount: 1000,
+//     currency: 'cad',
+//     payment_method_types: ['card'],
+//     receipt_email: 'jenny.rosen@example.com',
+//    //  sucess_url: '/',
+//    //  cancel_url: '/'
+//   }).then( res => console.log(res.id));
+// })();
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+

@@ -1,3 +1,4 @@
+// var stripe = Stripe('pk_test_vzAvHy9DyOYmnXgn5fLZ3YEZ00xwGEz8Pv');
 // $(() => {
 // $.ajax({
 // method: "GET",
@@ -8,6 +9,9 @@
 // }
 // });;
 // });
+
+
+
 
 const createMenu = function (menu) {
   return (
@@ -283,6 +287,17 @@ $(() => {
 
           renderOrder(response.menu_orders);
           $("#order-button").hide();
+          // var stripe = Stripe('pk_test_vzAvHy9DyOYmnXgn5fLZ3YEZ00xwGEz8Pv');
+          // stripe.redirectToCheckout({
+          //   // Make the id field from the Checkout Session creation API response
+          //   // available to this file, so you can provide it as parameter here
+          //   // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+          //   sessionId: pi_1FhNcNC66ot6XAoykrsfD9jV
+          // }).then(function (result) {
+          //   // If `redirectToCheckout` fails due to a browser or network
+          //   // error, display the localized error message to your customer
+          //   // using `result.error.message`.
+          // });
         });
 
       })
@@ -315,6 +330,28 @@ $(() => {
   $("#logout").click(function () {
     localStorage.removeItem('isOrdered');
   })
+  var stripe = Stripe('pk_test_vzAvHy9DyOYmnXgn5fLZ3YEZ00xwGEz8Pv');
+
+
+
+  $("a").click(function () {
+    console.log(stripe)
+    stripe.redirectToCheckout({
+
+      // Make the id field from the Checkout Session creation API response
+      // available to this file, so you can provide it as parameter here
+      // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+      items: [
+        // Replace with the ID of your SKU
+        {sku: 'sku_123', quantity: 1} ],
+        successUrl: '/',
+        cancelUrl: '/',
+    }).then(function (result) {
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `result.error.message`.
+    });
+  });
 
   // $("#order-ready-button").click(function () {
 

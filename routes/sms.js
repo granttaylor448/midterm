@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 var Twilio = require('twilio');
 
+
 module.exports = (client, db) => {
   router.post("/", (req, res) => {
     let query = `SELECT orders.id, menu_orders.menu_id, menu_orders.quantity  FROM menu_orders JOIN orders ON order_id = orders.id
@@ -27,8 +28,8 @@ module.exports = (client, db) => {
             //to: `+${req.body.response.phone}`
             to: '+14037000357'
           })
-          .then(message => console.log('MESSAGE SENT...', message.sid))
-      });
+          .then(message => console.log('MESSAGE SENT...', message.sid)) 
+      })
   });
 
 
@@ -67,4 +68,33 @@ module.exports = (client, db) => {
   return router;
 };
 
+
+// (async () => {
+//   const session = await stripe.checkout.sessions.create({
+//     payment_method_types: ['card'],
+//     line_items: [{
+//       name: 'T-shirt',
+//       description: 'Comfortable cotton t-shirt',
+//       // images: ['https://example.com/t-shirt.png'],
+//       amount: 500,
+//       currency: 'cad',
+//       quantity: 1,
+//     }],
+//     payment_intent_data: {
+//       capture_method: 'manual',
+//     },
+//     success_url: '/{CHECKOUT_SESSION_ID}',
+//     cancel_url: '/',
+//   });
+//   stripe.redirectToCheckout({
+//     // Make the id field from the Checkout Session creation API response
+//     // available to this file, so you can provide it as parameter here
+//     // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+//     sessionId: '{{CHECKOUT_SESSION_ID}}'
+//   }).then(function (result) {
+//     // If `redirectToCheckout` fails due to a browser or network
+//     // error, display the localized error message to your customer
+//     // using `result.error.message`.
+//   });
+// })();
 //to: `+${req.body.response.phon

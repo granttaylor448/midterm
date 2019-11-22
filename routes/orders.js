@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 //const {newOrder} = require('../db/database')
+const stripe = require('stripe')('sk_test_jtfqKWVP9pjeYFF65CewtswD00sqjK02iA');
 
-
-module.exports = (db) => {
+module.exports = (db, stripe) => {
   router.get("/", (req, res) => {
     let query = `SELECT id FROM orders
     ORDER BY id desc
@@ -24,6 +24,20 @@ module.exports = (db) => {
           });
       });
   });
+
+
+    // async function slideCheckout () {
+      // console.log("starts")
+    // const paymentIntent = await stripe.paymentIntents.create({
+      // amount: 1000,
+      // currency: 'cad',
+      // payment_method_types: ['card'],
+      // receipt_email: 'jenny.rosen@example.com'
+
+//
+    // });
+    // console.log("finsished")
+  // }
 
   const getUserID = function (email) {
     return db.query(`SELECT id FROM users
@@ -67,6 +81,16 @@ module.exports = (db) => {
         })
         .catch(err => console.error(err));
 
+        (async () => {
+          const paymentIntent = await stripe.paymentIntents.create({
+            amount: 1000,
+            currency: 'cad',
+            payment_method_types: ['card'],
+            receipt_email: 'jenny.rosen@example.com',
+           //  sucess_url: '/',
+           //  cancel_url: '/'
+          }).then( res => console.log(res.id))
+        })();
 
     //fillOrder(2,3,8);
   });
